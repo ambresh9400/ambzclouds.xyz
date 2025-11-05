@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>
-      <h1>Welcome to aishu and ambu AmbzClouds ☁️</h1>
+      <h1>Welcome to Renuka and eshwar world they are loverss ☁️</h1>
       <p>Your one-stop platform for AWS & DevOps learning</p>
     </header>
 
