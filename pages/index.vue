@@ -35,13 +35,14 @@
 </script>
 
 <style scoped>
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  font-family: 'Inter', sans-serif;
-  color: #333;
-  text-align: center;
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: block;
+  margin: 20px auto;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
