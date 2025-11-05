@@ -39,7 +39,11 @@ pipeline {
     stage('Build Project') {
       steps {
         echo "🏗️ Building Nuxt.js project..."
-        sh 'npm run build'
+        sh '''
+          sudo rm -rf .nuxt dist node_modules
+          npm install
+          npm run build
+        '''
       }
     }
 
