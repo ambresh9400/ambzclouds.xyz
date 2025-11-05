@@ -2,8 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'nuxt-app',
-      script: 'npm',
-      args: 'run start',
+      script: '.output/server/index.mjs',
       env: {
         HOST: '0.0.0.0',
         PORT: 3000,
@@ -12,3 +11,4 @@ module.exports = {
     }
   ]
 }
+
