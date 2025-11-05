@@ -31,7 +31,10 @@ pipeline {
       steps {
         echo "📦 Installing dependencies..."
         sh '''
-          npm ci || npm install
+          # Clean up old builds and node_modules
+          sudo rm -rf node_modules package-lock.json .nuxt dist .output
+          npm cache clean --force
+          npm install
         '''
       }
     }
@@ -40,17 +43,8 @@ pipeline {
       steps {
         echo "🏗️ Building Nuxt.js project..."
         sh '''
-          sudo rm -rf .nuxt dist node_modules
-          npm install
           npm run build
         '''
-      }
-    }
-
-    stage('Archive Build Artifacts') {
-      steps {
-        echo "📦 Archiving build artifacts..."
-        archiveArtifacts artifacts: '.output/**', fingerprint: true
       }
     }
 
@@ -58,10 +52,16 @@ pipeline {
       steps {
         echo "🚀 Deploying using PM2..."
         sh '''
+          # Stop any existing instance
           sudo pm2 stop nuxt-app || true
           sudo pm2 delete nuxt-app || true
-          sudo pm2 start npm --name "nuxt-app" -- run start
+
+          # Start new build
+          sudo pm2 start .output/server/index.mjs --name "nuxt-app" --interpreter node
+
+          # Save PM2 config
           sudo pm2 save
+          sudo systemctl restart nginx || true
         '''
       }
     }
