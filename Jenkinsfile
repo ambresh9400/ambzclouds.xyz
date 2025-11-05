@@ -58,9 +58,10 @@ pipeline {
       steps {
         echo "🚀 Deploying using PM2..."
         sh '''
-          pm2 delete nuxt-app || true
-          pm2 start ecosystem.config.js
-          pm2 save
+          sudo pm2 stop nuxt-app || true
+          sudo pm2 delete nuxt-app || true
+          sudo pm2 start npm --name "nuxt-app" -- run start
+          sudo pm2 save
         '''
       }
     }
