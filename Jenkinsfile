@@ -6,6 +6,10 @@ pipeline {
     PATH = "${NODE_HOME}/bin:${env.PATH}"
   }
 
+  options {
+    timeout(time: 30, unit: 'MINUTES') // prevent infinite hang
+  }
+
   stages {
     stage('Clone Repository') {
       steps {
@@ -17,7 +21,12 @@ pipeline {
     stage('Install Dependencies') {
       steps {
         echo "📦 Installing dependencies..."
-        sh 'npm install'
+        sh '''
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          npm cache clean --force
+          npm ci || npm install
+        '''
       }
     }
 
@@ -32,9 +41,9 @@ pipeline {
       steps {
         echo "🚀 Deploying using PM2..."
         sh '''
-        sudo pm2 stop nuxt-app || true
-        sudo pm2 start npm --name "nuxt-app" -- run start
-        sudo pm2 save
+          pm2 delete nuxt-app || true
+          pm2 start npm --name "nuxt-app" -- run start
+          pm2 save
         '''
       }
     }
