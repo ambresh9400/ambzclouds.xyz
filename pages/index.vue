@@ -2,8 +2,8 @@
   <div class="container">
     <header>
       <h1>Welcome to AMBRESH and DEEPU world they are loverss ☁️</h1>
-      <p>Your one-stop platform for AWS & DevOps learning</p>
       <img src="/images/deepu.png.jpg" alt="Deepu" class="profile-image" />
+      <p>Your one-stop platform for AWS & DevOps learning</p>
     </header>
 
     <main>
