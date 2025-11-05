@@ -1,7 +1,7 @@
 <template>
   <div style="text-align:center; margin-top: 50px;">
     <h1>🚀 Welcome to My ambzclouds.xyz App!</h1>
-    <p>This is hosted on <strong>AWS EC2</strong>.</p>
+    <p>This is ambi website hosted on <strong>AWS EC2</strong>.</p>
   </div>
 </template>
 
