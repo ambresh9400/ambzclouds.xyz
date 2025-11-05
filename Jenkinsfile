@@ -7,10 +7,19 @@ pipeline {
   }
 
   options {
-    timeout(time: 30, unit: 'MINUTES') // prevent infinite hang
+    timeout(time: 30, unit: 'MINUTES')
+    skipDefaultCheckout(true)
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '5'))
   }
 
   stages {
+    stage('Clean Workspace') {
+      steps {
+        cleanWs()
+      }
+    }
+
     stage('Clone Repository') {
       steps {
         echo "🔁 Cloning repository..."
@@ -22,9 +31,6 @@ pipeline {
       steps {
         echo "📦 Installing dependencies..."
         sh '''
-          echo "Node version: $(node -v)"
-          echo "NPM version: $(npm -v)"
-          npm cache clean --force
           npm ci || npm install
         '''
       }
@@ -37,12 +43,19 @@ pipeline {
       }
     }
 
+    stage('Archive Build Artifacts') {
+      steps {
+        echo "📦 Archiving build artifacts..."
+        archiveArtifacts artifacts: '.output/**', fingerprint: true
+      }
+    }
+
     stage('Deploy Application') {
       steps {
         echo "🚀 Deploying using PM2..."
         sh '''
           pm2 delete nuxt-app || true
-          pm2 start npm --name "nuxt-app" -- run start
+          pm2 start ecosystem.config.js
           pm2 save
         '''
       }
