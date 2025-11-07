@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     NODE_HOME = tool name: 'nodejs20', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-    PATH = "${NODE_HOME}/bin:${env.PATH}"
+    PATH = "${NODE_HOME}/bin:/usr/local/bin:/usr/bin:${env.PATH}"
   }
 
   options {
