@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "nuxt": "^3.11.2"
