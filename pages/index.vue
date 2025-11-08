@@ -2,7 +2,7 @@
   <div class="container">
     <header>
       <h1>Welcome to AMBRESH and aishu world they are loverss ☁️</h1>
-      <img src="/images/deepu.jpg" alt="Deepu" class="profile-image" />
+      <img src="/images/Gemini_Generated_Image_ys96p8ys96p8ys96.png" alt="Ambresh" class="profile-image" />
       <p>Your one-stop platform for AWS & DevOps learning</p>
     </header>
 
